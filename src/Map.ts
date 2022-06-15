@@ -1,7 +1,4 @@
 /// <reference types="@types/google.maps" />
-import { User } from './User';
-import { Company } from './Company';
-
 interface Mappable {
   location: {
     lat: number;
@@ -31,14 +28,4 @@ export class CustomMap {
       position: mappable.location,
     });
   }
-
-  //   addCompanyMarker(company: Company): void {
-  //     new google.maps.Marker({
-  //       map: this.googleMap,
-  //       position: {
-  //         lat: company.location.lat,
-  //         lng: company.location.lng,
-  //       },
-  //     });
-  //   }
 }
