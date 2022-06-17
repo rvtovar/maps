@@ -21618,12 +21618,17 @@ var User =
 /** @class */
 function () {
   function User() {
+    this.color = 'red';
     this.name = faker_1.faker.name.firstName();
     this.location = {
       lat: parseFloat(faker_1.faker.address.latitude()),
       lng: parseFloat(faker_1.faker.address.longitude())
     };
   }
+
+  User.prototype.markerContent = function () {
+    return "\n      <div>\n        <h3>".concat(this.name, "</h3>\n        <div>\n          lat: ").concat(this.location.lat, "\n          lng: ").concat(this.location.lng, "\n        </div>\n      </div>\n    ");
+  };
 
   return User;
 }();
@@ -21643,6 +21648,7 @@ var Company =
 /** @class */
 function () {
   function Company() {
+    this.color = 'blue';
     this.companyName = faker_1.faker.company.companyName();
     this.catchPhrase = faker_1.faker.company.catchPhrase();
     this.location = {
@@ -21650,6 +21656,10 @@ function () {
       lng: parseFloat(faker_1.faker.address.longitude())
     };
   }
+
+  Company.prototype.markerContent = function () {
+    return "\n      <div>\n        <h3>".concat(this.companyName, "</h3>\n        <h3>").concat(this.catchPhrase, "</h4>\n        <div>\n          lat: ").concat(this.location.lat, "\n          lng: ").concat(this.location.lng, "\n        </div>\n      </div>\n    ");
+  };
 
   return Company;
 }();
@@ -21661,7 +21671,7 @@ exports.Company = Company;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.CustomMap = void 0;
+exports.CustomMap = void 0; /// <reference types="@types/google.maps" />
 
 var CustomMap =
 /** @class */
@@ -21677,9 +21687,17 @@ function () {
   }
 
   CustomMap.prototype.addMarker = function (mappable) {
-    new google.maps.Marker({
+    var _this = this;
+
+    var marker = new google.maps.Marker({
       map: this.googleMap,
       position: mappable.location
+    });
+    marker.addListener('click', function () {
+      var infoWindow = new google.maps.InfoWindow({
+        content: mappable.markerContent()
+      });
+      infoWindow.open(_this.googleMap, marker);
     });
   };
 
@@ -21733,7 +21751,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46573" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43553" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
